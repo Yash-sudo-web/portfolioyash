@@ -5,11 +5,11 @@ export const Hero = () => {
   return (
     <>
       <div className='relative m-auto max-w-[1176px] flex'>
-        <div className='absolute bg-[#f7f8f2] text-black z-30 text-5xl top-[57.5%] font-bold'>
+        <div className='absolute bg-[#f7f8f2] text-black z-30 text-5xl top-[72.5%] font-bold'>
           STRENGTH <br /> IN SIMPLICITY
         </div>
-        <div>
-          <img src={hero} className='h-[67.5%] w-[90%] grayscale border-l-2 border-r-2 border-b-2 border-t' alt='Hero' />
+        <div className='max-h-[80vh]'>
+          <img src={hero} className='h-[85%] w-[90%] grayscale border-l-2 border-r-2 border-b-2 border-t' alt='Hero' />
         </div>
 
         <div className='w-[40%] text-white'>
