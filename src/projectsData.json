@@ -1,0 +1,27 @@
+[
+    {
+      "id": 1,
+      "name": "Synkro - Realtime Chatting Application",
+      "description": "Description for Project 1.",
+      "imageSrc": "KisaanMitr.png",
+      "githubLink": "https://github.com/Yash-sudo-web/synkro",
+      "websiteLink": "https://synkro-six.vercel.app/"
+    },
+    {
+      "id": 2,
+      "name": "KisaanMitr - A Farmer's Friend",
+      "description": "Description for Project 2.",
+      "imageSrc": "../assets/KisaanMitr.png",
+      "githubLink": "https://github.com/Yash-sudo-web/KisaanMitr",
+      "websiteLink": "https://kisaan-mitr.vercel.app/"
+    },
+    {
+      "id": 3,
+      "name": "TrashTrades - A Waste Management System",
+      "description": "Description for Project 3.",
+      "imageSrc": "../assets/KisaanMitr.png",
+      "githubLink": "https://github.com/Yash-sudo-web/TrashTrades",
+      "websiteLink": "https://trash-trades-swart.vercel.app/"
+    }
+  ]
+  
