@@ -4,6 +4,7 @@ const Header = () => {
   return (
     <>
         <hr />
+        <div className='w-50 absolute text-4xl bg-white'>Work in Progress<br/> Not complete yet</div>
         <div className='m-auto max-w-[1176px]'>
         <hr className='w-[25%] border-b-8' />
         <div className='flex gap-40 pb-[3%] pt-[3%]'>
