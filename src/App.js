@@ -1,7 +1,8 @@
 import Header from "./Components/Header";
-import { Hero } from "./Components/Hero";
+import  Hero  from "./Components/Hero";
 import Projects from "./Components/Projects";
-
+import Footer from "./Components/Footer";
+import Contact from "./Components/Contact";
 function App() {
   return (
     <>
@@ -9,6 +10,8 @@ function App() {
       <Header />
       <Hero />
       <Projects />
+      <Contact /> 
+      <Footer />
     </>
   );
 }

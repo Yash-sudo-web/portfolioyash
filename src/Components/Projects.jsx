@@ -39,7 +39,7 @@ const Projects = () => {
   return (
     <div className='border pb-28'>
       <div className='text-center text-white m-auto max-w-[1176px] pt-24'>
-        <h1 className='text-5xl' style={{ fontFamily: 'monospace' }}>
+        <h1 id='projects' className='text-5xl' style={{ fontFamily: 'monospace' }}>
           HIGHLIGHTING MY PASSION THROUGH<br />
           <em> CRAFTED <strong>"PROJECTS"</strong> ON DISPLAY</em>
         </h1>
