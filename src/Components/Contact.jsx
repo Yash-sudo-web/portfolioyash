@@ -28,8 +28,12 @@ const Contact = () => {
           });
     
           if (response.ok) {
-            console.log('Email sent successfully');
             alert('Email sent successfully');
+            setFormData({
+              name: '',
+              email: '',
+              message: ''
+            });
           } else {
             console.error('Failed to send email');
           }
@@ -62,7 +66,7 @@ const Contact = () => {
             <label className="block mb-2 text-white">Message:</label>
             <textarea onChange={handleChange} required id="message" name="message" rows="4" className="w-full px-3 py-2 border rounded focus:outline-none focus:border-blue-500"></textarea>
             </div>
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Submit</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">Submit</button>
         </form>
         </div>
       </div>
