@@ -8,7 +8,7 @@ export const Hero = () => {
         <div className='absolute bg-[#f7f8f2] text-black z-30 text-5xl top-[72.5%] font-bold'>
           STRENGTH <br /> IN SIMPLICITY
         </div>
-        <div className='max-h-[80vh]'>
+        <div id='about' className='max-h-[80vh]'>
           <img src={hero} className='h-[85%] w-[90%] grayscale border-l-2 border-r-2 border-b-2 border-t' alt='Hero' />
         </div>
 

@@ -41,7 +41,7 @@ const Projects = () => {
       <div className='text-center text-white m-auto max-w-[1176px] pt-24'>
         <h1 id='projects' className='text-5xl' style={{ fontFamily: 'monospace' }}>
           HIGHLIGHTING MY PASSION THROUGH<br />
-          <em> CRAFTED <strong>"PROJECTS"</strong> ON DISPLAY</em>
+          <em> CRAFTED <strong>PROJECTS</strong> ON DISPLAY</em>
         </h1>
       </div>
       <br /><br /><br />
@@ -60,8 +60,8 @@ const Projects = () => {
             <br />
             <p className='text-white pr-8 text-lg font-nova-flat'>
               {isDescriptionExpanded(project.id)
-                ? project.description // Show full description if expanded
-                : `${project.description.slice(0, 150)}...`} {/* Show a truncated version if not expanded */}
+                ? project.description 
+                : `${project.description.slice(0, 150)}...`} 
               <span
                 className='text-blue-500 cursor-pointer'
                 onClick={() => toggleDescription(project.id)}
