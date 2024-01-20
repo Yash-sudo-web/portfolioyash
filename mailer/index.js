@@ -25,7 +25,7 @@ let transporter = nodemailer.createTransport({
 app.post("/send-email", (req, res) => {
     // Extract data from the request body or query parameters
     const { name, email, message } = req.body;
-
+    console.log(req.body);
     // Create an email message
     let conf = {
         from: process.env.SMTP_MAIL,
