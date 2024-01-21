@@ -8,6 +8,9 @@ module.exports = {
     },
     screens: {
       'custom': '1200px',
+      'small': '520px',
+      'very-small': '460px',
+      'smaller':  '400px',
     },
     extend: {},
   },
