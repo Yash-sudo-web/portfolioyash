@@ -6,6 +6,9 @@ module.exports = {
     fontFamily: {
       'nova-flat': '"Nova Flat"'
     },
+    screens: {
+      'custom': '1200px',
+    },
     extend: {},
   },
   plugins: [],

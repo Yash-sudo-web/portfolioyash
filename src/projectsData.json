@@ -13,9 +13,9 @@
       "currentIndex": 0,
       "name": "Synkro - Realtime Chatting Application",
       "description": "Synkro, a real-time chat application using the MERN stack, TailwindCSS, Socket.io, Passport.js, and Axios. The project includes secure user registration and authentication through Passport.js, ensuring a safe platform for instant conversations. Leveraging Socket.io, users can seamlessly send and receive messages in real-time. The application's responsive and visually appealing UI, crafted with TailwindCSS, enhances the overall chatting experience.",
-      "imageSrc": ["https://i.imgur.com/TkXW1JK.png","https://i.imgur.com/SjtIVL8.png","https://i.imgur.com/SjtIVL8.png","https://i.imgur.com/Sw6y57y.png"],
+      "imageSrc": ["https://i.imgur.com/TkXW1JK.png","https://i.imgur.com/SjtIVL8.png","https://i.imgur.com/N3Zurvm.png","https://i.imgur.com/Sw6y57y.png"],
       "githubLink": "https://github.com/Yash-sudo-web/synkro",
-      "websiteLink": "https://synkro-six.vercel.app/"
+      "websiteLink": "https://drive.google.com/file/d/1RJaM-Un8kOstu41dQ8dt-dkoGTJi1HqF/view?usp=drive_link"
     },
     {
       "id": 2,

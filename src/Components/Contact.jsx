@@ -50,9 +50,9 @@ const Contact = () => {
           <em>VISION TO <strong>SUCCESSFUL</strong> FRUITION.</em>
         </h1>
       </div>
-      <div className='relative m-auto max-w-[1176px] flex justify-center items-start gap-32 pt-20 pb-24'>
-        <div className='text-white text-xl font-nova-flat max-w-[50%] pt-8'>Embark on a journey of innovation and excellence with my specialized freelance services, offering expert development in MERN stack for dynamic websites and crafting customized CLI tools using Python—all at minimal costs.<br/><br/> Your project's unique needs will be met with efficiency and creativity. Contact me via the provided form, and let's bring your vision to life, turning ideas into reality. </div>
-        <div className='border rounded'>
+      <div className='relative m-auto max-w-[1176px] flex justify-center items-start gap-16 custom:gap-32 pt-6 custom:pt-20 pb-16 custom:pb-24 max-custom:flex-col max-custom:items-center'>
+        <div className='text-white text-xl font-nova-flat max-w-[50%] pt-8 max-custom:text-center'>Embark on a journey of innovation and excellence with my specialized freelance services, offering expert development in MERN stack for dynamic websites and crafting customized CLI tools using Python—all at minimal costs.<br/><br/> Your project's unique needs will be met with efficiency and creativity. Contact me via the provided form, and let's bring your vision to life, turning ideas into reality. <br /><br />Actively seeking job opportunities and internships. Feel free to reach out for potential openings. Ready for new challenges and eager to contribute. Contact me for collaboration.</div>
+        <div className='border rounded max-custom:p-6'>
         <form onSubmit={handleSubmit} className=" p-6 rounded shadow-md w-80">
             <div className="mb-4">
             <label className="block mb-2 text-white">Name:</label>
