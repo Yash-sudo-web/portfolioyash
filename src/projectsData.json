@@ -1,30 +1,68 @@
 [
-    {
-      "id": 0,
-      "currentIndex": 0,
-      "name": "KisaanMitr - A Farmer's Friend",
-      "description": "KisaanMitr is transforming crop disease management with CropCheck, a web app using AI and deep learning to detect and combat diseases, ensuring food security and sustainable agriculture. Our platform employs advanced algorithms for accurate disease identification and provides actionable insights to farmers. Beyond detection, we're creating a marketplace connecting farmers with agrotech suppliers to foster an innovative agricultural community. Committed to leveraging technology, KisaanMitr aims to make a positive impact on sustainable agriculture and invites others to join in revolutionizing crop disease management.",
-      "imageSrc": ["https://i.imgur.com/mvDjj5W.png","https://i.imgur.com/cskz00a.png","https://i.imgur.com/0mpdy8U.png","https://i.imgur.com/yxbX0kg.png","https://i.imgur.com/pyO1Dp6.png","https://i.imgur.com/UaYe3f2.png"],
-      "githubLink": "https://github.com/Yash-sudo-web/KisaanMitr",
-      "websiteLink": "https://kisaan-mitr.vercel.app/"
-    },
-    {
-      "id": 1,
-      "currentIndex": 0,
-      "name": "Synkro - Realtime Chatting Application",
-      "description": "Synkro, a real-time chat application using the MERN stack, TailwindCSS, Socket.io, Passport.js, and Axios. The project includes secure user registration and authentication through Passport.js, ensuring a safe platform for instant conversations. Leveraging Socket.io, users can seamlessly send and receive messages in real-time. The application's responsive and visually appealing UI, crafted with TailwindCSS, enhances the overall chatting experience.",
-      "imageSrc": ["https://i.imgur.com/TkXW1JK.png","https://i.imgur.com/SjtIVL8.png","https://i.imgur.com/N3Zurvm.png","https://i.imgur.com/Sw6y57y.png"],
-      "githubLink": "https://github.com/Yash-sudo-web/synkro",
-      "websiteLink": "https://drive.google.com/file/d/1RJaM-Un8kOstu41dQ8dt-dkoGTJi1HqF/view?usp=drive_link"
-    },
-    {
-      "id": 2,
-      "currentIndex": 0,
-      "name": "TrashTrades - A Waste Management System",
-      "description": "TrashTrades, a comprehensive Trash Management and Collection Scheduling web application using the MERN stack, TailwindCSS, JWT authentication, and Axios. The project allows users to efficiently handle their trash-related activities. Security measures include user registration and authentication with JWT tokens and bcrypt encryption. The visually appealing and responsive user interface, designed with TailwindCSS, enhances the overall user experience. MongoDB serves as the secure NoSQL database for storing user data and chat messages.",
-      "imageSrc": ["https://i.imgur.com/Wc9B123.png","https://i.imgur.com/gmydMUY.png","https://i.imgur.com/dBLPer9.png"],
-      "githubLink": "https://github.com/Yash-sudo-web/TrashTrades",
-      "websiteLink": "https://trash-trades-swart.vercel.app/"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "currentIndex": 0,
+    "name": "PandaPrep - GenAI Notes Generator",
+    "description": "PandaPrep is a GenAI-powered web application designed to streamline exam preparation by generating concise, syllabus-based notes. Utilizing an agentic pipeline workflow, it serves over 100 active users, offering real-time markdown streaming via WebSockets and dynamic PDF generation through a separately deployed Docker microservice. Key features include AI-powered notes generation, interactive learning, organized note management, visual enhancements, and the ability to chat with your PDFs.",
+    "imageSrc": [
+      "https://i.imgur.com/uRJ5SMt.jpeg",
+      "https://i.imgur.com/S8DOnyu.jpeg",
+      "https://i.imgur.com/HY5aGTc.jpeg",
+      "https://i.imgur.com/a7tZadH.png",
+      "https://i.imgur.com/qsJ7jeD.jpeg"
+    ],
+    "websiteLink": "https://pandaprepai.tech/"
+  },
+  {
+    "id": 2,
+    "currentIndex": 0,
+    "name": "Synkro - Realtime Chatting Application",
+    "description": "Synkro, a real-time chat application using the MERN stack, TailwindCSS, Socket.io, Passport.js, and Axios. The project includes secure user registration and authentication through Passport.js, ensuring a safe platform for instant conversations. Leveraging Socket.io, users can seamlessly send and receive messages in real-time. The application's responsive and visually appealing UI, crafted with TailwindCSS, enhances the overall chatting experience.",
+    "imageSrc": [
+      "https://i.imgur.com/TkXW1JK.png",
+      "https://i.imgur.com/SjtIVL8.png",
+      "https://i.imgur.com/N3Zurvm.png",
+      "https://i.imgur.com/Sw6y57y.png"
+    ],
+    "githubLink": "https://github.com/Yash-sudo-web/synkro",
+    "websiteLink": "https://drive.google.com/file/d/1RJaM-Un8kOstu41dQ8dt-dkoGTJi1HqF/view?usp=drive_link"
+  },
+  {
+    "id": 3,
+    "currentIndex": 0,
+    "name": "Redis Implementation Golang",
+    "description": "A lightweight Redis server and client implementation written in Go, featuring support for various Redis commands, RESP protocol handling, RDB file persistence, and basic master-slave replication. The custom server and client are fully compatible with Redis's official server and client, ensuring seamless interaction. Key features include basic Redis commands, key expiration support, master-slave replication, RDB file loading, Docker support, and command-line arguments for server configuration. This project also includes a demo and Docker deployment for easy setup.",
+    "imageSrc": ["https://i.imgur.com/bcocuwt.png", "https://i.imgur.com/53Mce3j.png", "https://i.imgur.com/d2wJnxJ.png"],
+    "githubLink": "https://github.com/Yash-sudo-web/redis-implementation-golang",
+    "websiteLink": "https://github.com/Yash-sudo-web/redis-implementation-golang?tab=readme-ov-file#demo"
+  },
+  {
+    "id": 4,
+    "currentIndex": 0,
+    "name": "KisaanMitr - A Farmer's Friend",
+    "description": "KisaanMitr is transforming crop disease management with CropCheck, a web app using AI and deep learning to detect and combat diseases, ensuring food security and sustainable agriculture. Our platform employs advanced algorithms for accurate disease identification and provides actionable insights to farmers. Beyond detection, we're creating a marketplace connecting farmers with agrotech suppliers to foster an innovative agricultural community. Committed to leveraging technology, KisaanMitr aims to make a positive impact on sustainable agriculture and invites others to join in revolutionizing crop disease management.",
+    "imageSrc": [
+      "https://i.imgur.com/mvDjj5W.png",
+      "https://i.imgur.com/cskz00a.png",
+      "https://i.imgur.com/0mpdy8U.png",
+      "https://i.imgur.com/yxbX0kg.png",
+      "https://i.imgur.com/pyO1Dp6.png",
+      "https://i.imgur.com/UaYe3f2.png"
+    ],
+    "githubLink": "https://github.com/Yash-sudo-web/KisaanMitr",
+    "websiteLink": "https://kisaan-mitr.vercel.app/"
+  },
+  {
+    "id": 5,
+    "currentIndex": 0,
+    "name": "TrashTrades - A Waste Management System",
+    "description": "TrashTrades, a comprehensive Trash Management and Collection Scheduling web application using the MERN stack, TailwindCSS, JWT authentication, and Axios. The project allows users to efficiently handle their trash-related activities. Security measures include user registration and authentication with JWT tokens and bcrypt encryption. The visually appealing and responsive user interface, designed with TailwindCSS, enhances the overall user experience. MongoDB serves as the secure NoSQL database for storing user data and chat messages.",
+    "imageSrc": [
+      "https://i.imgur.com/Wc9B123.png",
+      "https://i.imgur.com/gmydMUY.png",
+      "https://i.imgur.com/dBLPer9.png"
+    ],
+    "githubLink": "https://github.com/Yash-sudo-web/TrashTrades",
+    "websiteLink": "https://trash-trades-swart.vercel.app/"
+  }
+]
