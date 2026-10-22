@@ -1,0 +1,229 @@
+/* The Say hi arcade: a game picker plus three small games on one board size. */
+
+.arcade {
+  max-width: 440px;
+  margin-left: auto;
+}
+
+.arcade-kicker {
+  margin: 0;
+}
+
+.arcade-title {
+  margin: 0 0 14px;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.arcade-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.arcade-tabs {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--panel-border);
+  border-radius: 9px;
+  background: color-mix(in srgb, var(--panel) 70%, transparent);
+}
+
+.arcade-tab {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--muted);
+  font: 500 12.5px var(--font-mono);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.arcade-tab:hover {
+  color: var(--ink);
+}
+
+.arcade-tab.is-active {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.arcade-random {
+  padding: 7px 14px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  font: 500 0.95rem var(--font-hand);
+  cursor: pointer;
+}
+
+.dice {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.arcade .circle-game {
+  max-width: none;
+  margin: 0;
+}
+
+/* shared game chrome */
+
+.game-board {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 6px;
+}
+
+.game-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.game-hud {
+  font: 500 15px var(--font-mono);
+  fill: var(--muted);
+}
+
+.game-overlay {
+  position: absolute;
+  inset: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 0;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  backdrop-filter: blur(2px);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.game-overlay-big {
+  font: 600 2rem var(--font-hand);
+}
+
+.game-result {
+  min-height: 1.6em;
+  margin: 14px 0 4px;
+  font-family: var(--font-note);
+  font-size: 1.45rem;
+}
+
+.game-best {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.game-best strong {
+  color: var(--ink);
+}
+
+.game-best .note {
+  font-size: 1.15rem;
+}
+
+/* bug bash */
+
+.bug-svg path {
+  fill: none;
+  stroke-linecap: round;
+}
+
+.bug-svg .p-ink {
+  stroke: color-mix(in srgb, var(--ink) 45%, transparent);
+}
+
+.bug .p-ink {
+  stroke: var(--ink);
+}
+
+.bug {
+  cursor: crosshair;
+}
+
+.bug-hit {
+  fill: transparent;
+}
+
+.bug-body {
+  animation: bug-pop 0.18s ease-out, bug-wiggle 0.3s ease-in-out 0.18s infinite alternate;
+}
+
+@keyframes bug-pop {
+  from { transform: scale(0.2) translateY(20px); }
+}
+
+@keyframes bug-wiggle {
+  to { transform: rotate(8deg); }
+}
+
+.bug-splat {
+  text-anchor: middle;
+  font: 700 22px var(--font-note);
+  fill: var(--yellow);
+  animation: splat 0.5s ease-out forwards;
+}
+
+@keyframes splat {
+  to { opacity: 0; transform: translateY(-14px); }
+}
+
+/* ship it (reflex) */
+
+.reflex {
+  aspect-ratio: 1;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 0;
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.reflex-big {
+  font: 600 clamp(2rem, 6vw, 2.8rem) var(--font-hand);
+}
+
+.reflex-waiting .reflex-big {
+  color: var(--muted);
+}
+
+/* Plain CSS fill so the colour change is instant: it's what you react to. */
+.reflex-go,
+.reflex-early {
+  color: #fff;
+  background-clip: content-box;
+}
+
+.reflex-go { background-color: var(--green); }
+.reflex-early { background-color: var(--red); }
+
+.reflex-go .note,
+.reflex-early .note {
+  color: rgb(255 255 255 / 0.85);
+}
+
+@media (max-width: 720px) {
+  .arcade {
+    margin: 12px 0 0;
+  }
+}

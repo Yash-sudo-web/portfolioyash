@@ -1,141 +1,143 @@
+import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Doodle, Sketch, arrow } from "./Sketch";
 import { scrollToId } from "./Nav";
-import { profile } from "../data";
 
-// Doodle drawers live at module scope so their drawables are memoised.
-const star = (g, o) => {
-  const pts = [];
-  for (let i = 0; i < 10; i++) {
-    const r = i % 2 ? 11 : 26;
-    const a = (Math.PI / 5) * i - Math.PI / 2;
-    pts.push([30 + r * Math.cos(a), 30 + r * Math.sin(a)]);
-  }
-  return [g.polygon(pts, { ...o, seed: 4, fill: "FILL", fillStyle: "hachure", hachureGap: 5 })];
-};
-const diamond = (g, o) => [
-  g.polygon(
-    [
-      [40, 4],
-      [76, 40],
-      [40, 76],
-      [4, 40],
-    ],
-    { ...o, seed: 7, fill: "FILL", fillStyle: "cross-hatch", hachureGap: 6 },
-  ),
+const enter = (i) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, delay: 0.1 + i * 0.12, ease: [0.2, 0.8, 0.2, 1] },
+});
+
+const NOTES = [
+  { title: "now", body: "SDE-1 on the backend/AI team @ smallcase", color: "s-yellow", x: "4%", y: "6%", r: -5 },
+  { title: "shipped", body: "an AI platform 5+ teams build agents on", color: "s-violet", x: "52%", y: "0%", r: 4 },
+  { title: "stack", body: "Python · TypeScript · Go, plus MCP, RAG and evals", color: "s-blue", x: "10%", y: "52%", r: 3 },
+  { title: "off the clock", body: "rebuilding Redis in Go, merging OSS PRs", color: "s-green", x: "56%", y: "48%", r: -4 },
 ];
-const circle = (g, o) => [g.circle(26, 26, 42, { ...o, seed: 3, fill: "FILL", hachureGap: 5 })];
-const cross = (g, o) => [
-  g.line(4, 4, 24, 24, { ...o, seed: 2 }),
-  g.line(24, 4, 4, 24, { ...o, seed: 5 }),
-];
-const squiggle = (g, o) => [
-  g.curve(
-    [
-      [4, 50],
-      [18, 10],
-      [30, 56],
-      [44, 8],
-      [58, 54],
-      [72, 10],
-      [86, 52],
-      [100, 14],
-      [112, 46],
-    ],
-    { ...o, seed: 9, strokeWidth: 2.4 },
-  ),
-];
-const scrollArrow = (g, o) =>
+
+const dragArrow = (g, o) =>
   arrow(
     [
-      [86, 8],
-      [52, 18],
-      [20, 44],
+      [70, 8],
+      [40, 10],
+      [8, 30],
     ],
-    { ...o, seed: 11, strokeWidth: 1.8 },
+    { ...o, seed: 71, strokeWidth: 1.6 },
   );
 
-function Cursor() {
+const PAPER = { fill: true, fillStyle: "solid", roughness: 1.4 };
+
+// Marker-pen styles for phrases in the intro.
+const marker = { stroke: false, fill: true, hachureGap: 4, fillWeight: 2.2, roughness: 1.6 };
+
+function Mark({ color, seed, kind = "highlight", children }) {
   return (
-    <span className="cursor" aria-hidden="true">
-      <svg viewBox="0 0 16 16" width="14" height="14">
-        <path d="M2 1 L13 8 L8 9 L6 14 Z" />
-      </svg>
-      <span className="cursor-tag">yash</span>
-    </span>
+    <Sketch
+      as="span"
+      shape={kind === "highlight" ? "rect" : kind}
+      className={`mark mark-${kind}`}
+      color={color}
+      seed={seed}
+      sketch={kind === "highlight" ? marker : { strokeWidth: 2.2 }}
+    >
+      {children}
+    </Sketch>
   );
 }
 
-const line = (i) => ({
-  initial: { opacity: 0, y: 18 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay: 0.15 + i * 0.15, ease: [0.2, 0.8, 0.2, 1] },
-});
+// Drifts on its own until someone drags it; once thrown, it glides to a stop and stays there.
+// Each note owns its state, so picking one up only re-renders that note.
+function StickyNote({ note: n, i, board }) {
+  const [settled, setSettled] = useState(false);
+  return (
+    <motion.div
+      className="sticky-note"
+      style={{ left: n.x, top: n.y }}
+      initial={{ opacity: 0, scale: 0.6, rotate: 0 }}
+      animate={{ opacity: 1, scale: 1, rotate: n.r }}
+      transition={{ delay: 0.3 + i * 0.12, type: "spring", bounce: 0.4 }}
+      drag
+      dragConstraints={board}
+      dragElastic={0.15}
+      whileDrag={{ scale: 1.05, zIndex: 5 }}
+      onDragStart={() => setSettled(true)}
+    >
+      {/* The drift lives on an inner wrapper so it never fights the drag transform.
+          It's paused (not removed) on drag so the note doesn't snap. */}
+      <div
+        className={`sticky-float ${settled ? "is-settled" : ""}`}
+        style={{ "--float-dur": `${5 + i * 0.9}s`, "--float-delay": `${-i * 1.3}s` }}
+      >
+        <Sketch className="sticky-paper" color={n.color} seed={81 + i} sketch={PAPER}>
+          <span className="sticky-title">{n.title}</span>
+          <span className="sticky-body">{n.body}</span>
+        </Sketch>
+      </div>
+    </motion.div>
+  );
+}
 
+// A colourful intro beside a little board of sticky notes visitors can drag around.
 export function Hero() {
+  const board = useRef(null);
+
   return (
     <header className="hero" id="top">
-      <Doodle className="deco deco-cross" w={28} h={28} draw={cross} />
-      <Doodle className="deco deco-star" color="yellow" w={60} h={60} draw={star} />
-      <Doodle className="deco deco-diamond" color="violet" w={80} h={80} draw={diamond} />
-      <Doodle className="deco deco-circle" color="green" w={52} h={52} draw={circle} />
+      <div className="hero-grid">
+        <div>
+          <motion.h1 className="hero-title" {...enter(0)}>
+            Hi, I'm{" "}
+            <Mark color="yellow" seed={71}>
+              Yash
+            </Mark>
+            .
+          </motion.h1>
+          <motion.p className="hero-lead" {...enter(1)}>
+            I build{" "}
+            <Mark color="blue" seed={72} kind="underline">
+              AI agents
+            </Mark>{" "}
+            that hold up in{" "}
+            <Mark color="green" seed={73} kind="ellipse">
+              production
+            </Mark>
+            .
+          </motion.p>
+          <motion.p className="hero-sub" {...enter(2)}>
+            Most of my work lives{" "}
+            <Mark color="violet" seed={74}>
+              behind the demo
+            </Mark>
+            : retrieval that finds the right context, tools agents can safely call, and evals that catch bad
+            answers before users do.
+          </motion.p>
+          <motion.div className="hero-cta" {...enter(3)}>
+            <Sketch
+              as="button"
+              className="btn btn-primary"
+              color="blue"
+              jitter
+              sketch={{ fill: true, fillStyle: "solid" }}
+              onClick={() => scrollToId("work")}
+            >
+              View work
+            </Sketch>
+            <Sketch as="button" className="btn" jitter seed={2} onClick={() => scrollToId("contact")}>
+              Say hi
+            </Sketch>
+          </motion.div>
+        </div>
 
-      <motion.p className="hero-meta" {...line(0)}>
-        {profile.location} · {profile.role}
-      </motion.p>
-
-      <h1 className="hero-title">
-        <motion.span className="hero-line" {...line(1)}>
-          Engineer.
-        </motion.span>
-        <motion.span className="hero-line" {...line(2)}>
-          <Sketch
-            as="span"
-            className="highlight"
-            color="yellow"
-            seed={3}
-            sketch={{ stroke: false, fill: true, hachureGap: 4, fillWeight: 2.2, roughness: 1.6 }}
-          >
-            I build agents
-          </Sketch>
-        </motion.span>
-        <motion.span className="hero-line" {...line(3)}>
-          <span className="selection">
-            that actually ship.
-            <i className="handle tl" />
-            <i className="handle tr" />
-            <i className="handle bl" />
-            <i className="handle br" />
-            <Cursor />
+        <div className="sticky-board" ref={board}>
+          {NOTES.map((n, i) => (
+            <StickyNote key={n.title} note={n} i={i} board={board} />
+          ))}
+          <span className="sticky-hint">
+            <Doodle w={76} h={36} draw={dragArrow} />
+            <span className="note">go on, drag them</span>
           </span>
-        </motion.span>
-      </h1>
-
-      <motion.p className="hero-sub" {...line(4)}>
-        I work on the unglamorous half of AI: the platform, the RAG pipelines, the MCP tools and the
-        evals that keep it all honest in production.
-      </motion.p>
-
-      <motion.div className="hero-cta" {...line(5)}>
-        <Sketch
-          as="button"
-          className="btn btn-primary"
-          color="blue"
-          jitter
-          sketch={{ fill: true, fillStyle: "solid" }}
-          onClick={() => scrollToId("work")}
-        >
-          View work
-        </Sketch>
-        <Sketch as="button" className="btn" jitter seed={2} onClick={() => scrollToId("about")}>
-          Read my story
-        </Sketch>
-      </motion.div>
-
-      <div className="hero-scroll" aria-hidden="true">
-        <Doodle className="deco-squiggle" w={116} h={62} draw={squiggle} />
-        <Doodle className="deco-scroll-arrow" w={92} h={52} draw={scrollArrow} />
-        <span className="note">keep scrolling, it's one big canvas</span>
+        </div>
       </div>
     </header>
   );

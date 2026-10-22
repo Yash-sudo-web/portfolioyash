@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Doodle, Drawn, Sketch, arrow, useInView } from "./Sketch";
+import { Arcade } from "./games/Arcade";
 import { scrollToId } from "./Nav";
 import { chat, experience, oss, profile, projects, stack } from "../data";
 
@@ -443,22 +444,6 @@ export function Skills() {
   );
 }
 
-const zigzag = (g, o) => [
-  g.curve(
-    [
-      [4, 44],
-      [16, 8],
-      [28, 48],
-      [40, 6],
-      [52, 46],
-      [64, 10],
-      [78, 44],
-      [92, 14],
-    ],
-    { ...o, seed: 13, strokeWidth: 2.4 },
-  ),
-];
-
 const MAILER = "https://portfolioyashmailer.vercel.app/send-email";
 
 export function Contact() {
@@ -503,7 +488,6 @@ export function Contact() {
   return (
     <section id="contact" className="section contact">
       <Heading n="05">Say hi</Heading>
-      <Doodle className="deco deco-zigzag" w={96} h={54} draw={zigzag} />
 
       <div className="contact-grid">
         <motion.div {...reveal(1)}>
@@ -522,38 +506,41 @@ export function Contact() {
               </Sketch>
             ))}
           </div>
+          <form className="contact-form" onSubmit={submit}>
+            <p className="note">or leave a note on the canvas</p>
+            <Sketch className="field" seed={91}>
+              <input placeholder="your name" aria-label="Name" {...field("name")} />
+            </Sketch>
+            <Sketch className="field" seed={92}>
+              <input type="email" placeholder="your email" aria-label="Email" {...field("email")} />
+            </Sketch>
+            <Sketch className="field" seed={93}>
+              <textarea rows={4} placeholder="what are we building?" aria-label="Message" {...field("message")} />
+            </Sketch>
+            <div className="form-row">
+              <Sketch
+                as="button"
+                type="submit"
+                className="btn btn-primary"
+                color="blue"
+                jitter
+                seed={94}
+                sketch={{ fill: true, fillStyle: "solid" }}
+                disabled={status === "sending"}
+              >
+                {status === "sending" ? "sending…" : "Send"}
+              </Sketch>
+              <span className="note" role="status">
+                {status === "sent" && "got it, I'll reply soon ✓"}
+                {status === "error" && "that didn't go through, try email instead"}
+              </span>
+            </div>
+          </form>
         </motion.div>
 
-        <motion.form className="contact-form" onSubmit={submit} {...reveal(2)}>
-          <p className="note">or leave a note on the canvas</p>
-          <Sketch className="field" seed={91}>
-            <input placeholder="your name" aria-label="Name" {...field("name")} />
-          </Sketch>
-          <Sketch className="field" seed={92}>
-            <input type="email" placeholder="your email" aria-label="Email" {...field("email")} />
-          </Sketch>
-          <Sketch className="field" seed={93}>
-            <textarea rows={4} placeholder="what are we building?" aria-label="Message" {...field("message")} />
-          </Sketch>
-          <div className="form-row">
-            <Sketch
-              as="button"
-              type="submit"
-              className="btn btn-primary"
-              color="blue"
-              jitter
-              seed={94}
-              sketch={{ fill: true, fillStyle: "solid" }}
-              disabled={status === "sending"}
-            >
-              {status === "sending" ? "sending…" : "Send"}
-            </Sketch>
-            <span className="note" role="status">
-              {status === "sent" && "got it, I'll reply soon ✓"}
-              {status === "error" && "that didn't go through, try email instead"}
-            </span>
-          </div>
-        </motion.form>
+        <motion.div {...reveal(2)}>
+          <Arcade />
+        </motion.div>
       </div>
 
       <footer className="footer note">

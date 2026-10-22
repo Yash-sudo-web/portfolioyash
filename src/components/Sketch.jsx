@@ -2,14 +2,14 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import rough from "roughjs";
 
 // One shared generator: we only need path data, React renders the <path>s.
-const gen = rough.generator();
+export const gen = rough.generator();
 
 // Placeholder colours; rough.js needs literal strings, so we tag paths with
 // these and map them to CSS classes (which read the theme's CSS variables).
 const INK = "INK";
 const FILL = "FILL";
 
-function options(o) {
+export function options(o) {
   return {
     seed: o.seed ?? 1,
     roughness: o.roughness ?? 1.1,
