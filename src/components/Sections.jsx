@@ -320,6 +320,85 @@ export function OpenSource() {
   );
 }
 
+// Pretend latencies for the trace panel: stable per turn, so it reads the same every visit.
+const spanMs = (turn, k, base, spread) => base + ((turn * 97 + k * 61) % spread);
+
+// The agent's run for each answer, as spans: plan → tool call (if any) → respond.
+const traceTurns = chat
+  .map((m, i) => ({ m, i }))
+  .filter(({ m }) => m.from === "agent")
+  .map(({ m, i }, turn) => {
+    const spans = [{ name: "llm.plan", kind: "violet", ms: spanMs(turn, 1, 180, 160) }];
+    if (m.tool) spans.push({ name: `tool.${m.tool.replace("()", "")}`, kind: "yellow", ms: spanMs(turn, 2, 90, 240) });
+    spans.push({ name: "llm.respond", kind: "green", ms: spanMs(turn, 3, 520, 520) });
+    let t = 0;
+    for (const sp of spans) {
+      sp.start = t;
+      t += sp.ms;
+    }
+    return { index: i, question: chat[i - 1]?.text, spans, total: t };
+  });
+
+const TRACE_SCALE = Math.max(...traceTurns.map((t) => t.total));
+
+function Trace({ shown, running }) {
+  const done = traceTurns.filter((t) => t.index < shown);
+  const live = running ? traceTurns.find((t) => t.index === shown) : null;
+  const totalMs = done.reduce((a, t) => a + t.total, 0);
+  const calls = done.reduce((a, t) => a + t.spans.length, 0);
+
+  return (
+    <Sketch className="trace" seed={171}>
+      <div className="trace-bar">
+        <span className="trace-name">trace · ask-yash</span>
+        <span className="trace-stats">
+          {calls} spans · {(totalMs / 1000).toFixed(2)}s
+        </span>
+      </div>
+      {/* Every turn has a reserved slot (hidden until it runs), so the turns share the
+          box's height and nothing shifts as they fill in. */}
+      <div className="trace-turns">
+      {traceTurns.map((t, n) => (
+        <div
+          className={`trace-turn ${t === live ? "is-running" : ""} ${t.index < shown || t === live ? "" : "is-pending"}`}
+          key={t.index}
+          aria-hidden={t.index >= shown && t !== live}
+        >
+          <p className="trace-q">
+            <span className="trace-turn-n">#{n + 1}</span> “{t.question}”
+          </p>
+          {t.spans.map((sp) => (
+            <div className="span" key={sp.name}>
+              <span className="span-name">{sp.name}</span>
+              <span className="span-track">
+                <Sketch
+                  as="span"
+                  className="span-bar"
+                  color={sp.kind}
+                  seed={t.index * 7 + sp.start}
+                  sketch={{ fill: true, hachureGap: 4, roughness: 1 }}
+                  style={{
+                    left: `${(sp.start / TRACE_SCALE) * 100}%`,
+                    width: `${(sp.ms / TRACE_SCALE) * 100}%`,
+                  }}
+                />
+              </span>
+              <span className="span-ms">{t === live ? "…" : `${sp.ms}ms`}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+      </div>
+      {done.length === 0 && !live && <p className="note trace-empty">waiting for a question…</p>}
+      <p className="note about-aside">
+        not a real agent, so not a real trace either.
+        <br />
+        (yet. give me a weekend.)
+      </p>
+    </Sketch>
+  );
+}
+
 const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 export function About() {
@@ -351,9 +430,17 @@ export function About() {
             {chat.map((m, i) => (
               <div
                 key={i}
-                className={`msg msg-${m.from} ${i < shown ? "is-shown" : ""}`}
+                className={`msg msg-${m.from} ${i < shown ? "is-shown" : ""} ${typing && i === shown ? "is-typing" : ""}`}
                 aria-hidden={i >= shown}
               >
+                {/* Typing dots sit in the slot the next answer will fill. */}
+                {typing && i === shown && (
+                  <span className="typing" aria-label="typing">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                )}
                 {m.tool && <span className="tool-call">⚙ {m.tool} ✓</span>}
                 <Sketch
                   className="bubble"
@@ -370,20 +457,9 @@ export function About() {
                 </Sketch>
               </div>
             ))}
-            {typing && (
-              <div className="typing" aria-label="typing">
-                <i />
-                <i />
-                <i />
-              </div>
-            )}
           </div>
         </Sketch>
-        <p className="note about-aside">
-          ← not a real agent.
-          <br />
-          (yet. give me a weekend.)
-        </p>
+        <Trace shown={shown} running={typing} />
       </div>
     </section>
   );
